@@ -4,7 +4,7 @@
 
 | Column             | Type    | Options                  |
 | ------------------ | ------- | ------------------------ |
-| nickname           | string  | null: false,             |
+| nickname           | string  | null: false              |
 | email              | string  | null: false, unique: true|
 | encrypted_password | string  | null: false              |
 | last_name          | string  | null: false              |
@@ -20,17 +20,17 @@ has_many :buys
 
 ## items テーブル
 
-| Column            | Type       | Options                        |
-| ----------------- | ---------- | ------------------------------ |
-| item_name         | string     | null: false,                   |
-| item_text         | text       | null: false,                   |
-| category_id       | integer    | null: false,                   |
-| condition_id      | integer    | null: false,                   |
-| shippingfee_id    | integer    | null: false,                   |
-| shippingregion_id | integer    | null: false,                   |
-| shippingdate_id   | integer    | null: false,                   |
-| price             | integer    | null: false,                   |
-| user              | references | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| item_name        | string     | null: false                    |
+| item_text        | text       | null: false                    |
+| category_id      | integer    | null: false                    |
+| condition_id     | integer    | null: false                    |
+| shipping_fee_id  | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| shipping_date_id | integer    | null: false                    |
+| price            | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -55,12 +55,12 @@ has_one    :address
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
 | buy            | references | null: false, foreign_key: true |
-| postal_code    | string     | null: false,                   |
-| prefectures_id | integer    | null: false,                   |
-| city           | string     | null: false,                   |
-| block          | string     | null: false,                   |
+| postal_code    | string     | null: false                    |
+| prefecture_id  | integer    | null: false                    |
+| city           | string     | null: false                    |
+| block          | string     | null: false                    |
 | buildings_name | string     |                                |
-| phone_number   | string     | null: false,                   |
+| phone_number   | string     | null: false                    |
 
 ### Association
 
