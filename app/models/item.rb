@@ -1,8 +1,8 @@
 class Item < ApplicationRecord
 
   validates :image,             presence: true
-  validates :item_name,         presence: true
-  validates :item_text,         presence: true
+  validates :item_name,         presence: true, length: { minimum: 1, maximum: 40 }
+  validates :item_text,         presence: true, length: { minimum: 1, maximum: 1000 }
   validates :category_id,       presence: true, numericality: { other_than: 1 } 
   validates :condition_id,      presence: true, numericality: { other_than: 1 }
   validates :shipping_fee_id,   presence: true, numericality: { other_than: 1 }
