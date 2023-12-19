@@ -23,7 +23,6 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-
   def edit
     @item = Item.find(params[:id])
   end
@@ -31,13 +30,12 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-    redirect_to item_path(@item.id)
+      redirect_to item_path(@item.id)
     else
-    render :edit, status: :unprocessable_entity
-    end 
+      render :edit, status: :unprocessable_entity
+    end
   end
-  
-  
+
   private
 
   def item_params
@@ -47,8 +45,8 @@ class ItemsController < ApplicationController
 
   def move_to_index
     @item = Item.find(params[:id])
-    unless user_signed_in? && current_user.id == @item.user_id
-      redirect_to action: :index
-    end
+    return if user_signed_in? && current_user.id == @item.user_id
+
+    redirect_to action: :index
   end
 end
