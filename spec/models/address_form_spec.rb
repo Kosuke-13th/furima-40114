@@ -9,7 +9,7 @@ RSpec.describe AddressForm, type: :model do
 
   describe '商品購入' do
     context '商品購入できるとき' do
-      it 'postal_codeと、prefecture_idと、cityと、blockと、buildings_nameと、phone_numberと、item_idと、user_idが存在すれば登録できる' do
+      it 'postal_codeと、prefecture_idと、cityと、blockと、buildings_nameと、phone_numberと、item_idと、user_idと、tokenが存在すれば登録できる' do
         expect(@buy).to be_valid
       end
       it 'buildings_nameが存在しなくても登録できる' do
@@ -102,6 +102,12 @@ RSpec.describe AddressForm, type: :model do
         @buy = FactoryBot.build( :address_form,user_id:@user.id, item_id:nil)
         @buy.valid?
         expect(@buy.errors.full_messages).to include("Item can't be blank")
+      end
+
+      it "tokenが空では登録できないこと" do
+         @buy.token = nil
+         @buy.valid?
+        expect(@buy.errors.full_messages).to include("Token can't be blank")
       end
 
     end
