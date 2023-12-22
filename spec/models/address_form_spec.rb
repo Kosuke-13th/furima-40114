@@ -4,7 +4,7 @@ RSpec.describe AddressForm, type: :model do
   before do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item)
-    @buy = FactoryBot.build( :address_form,user_id:@user.id, item_id:@item.id)
+    @buy = FactoryBot.build(:address_form, user_id: @user.id, item_id: @item.id)
   end
 
   describe '商品購入' do
@@ -16,7 +16,6 @@ RSpec.describe AddressForm, type: :model do
         @buy.buildings_name = ''
         expect(@buy).to be_valid
       end
-
     end
 
     context '商品購入できないとき' do
@@ -29,13 +28,13 @@ RSpec.describe AddressForm, type: :model do
       it 'postal_codeは3桁ハイフン4桁でないと登録できない' do
         @buy.postal_code = '1110000'
         @buy.valid?
-        expect(@buy.errors.full_messages).to include("Postal code is invalid")
+        expect(@buy.errors.full_messages).to include('Postal code is invalid')
       end
 
       it 'postal_codeは半角数字でないと登録できない' do
         @buy.postal_code = '１１１-１１１１'
         @buy.valid?
-        expect(@buy.errors.full_messages).to include("Postal code is invalid")
+        expect(@buy.errors.full_messages).to include('Postal code is invalid')
       end
 
       it 'prefecture_idが空では登録できない' do
@@ -71,45 +70,44 @@ RSpec.describe AddressForm, type: :model do
       it 'phone_numberが9桁以下では登録できない' do
         @buy.phone_number = '090111111'
         @buy.valid?
-        expect(@buy.errors.full_messages).to include("Phone number is invalid")
+        expect(@buy.errors.full_messages).to include('Phone number is invalid')
       end
 
       it 'phone_numberが12桁以上では登録できない' do
         @buy.phone_number = '090111111111'
         @buy.valid?
-        expect(@buy.errors.full_messages).to include("Phone number is invalid")
+        expect(@buy.errors.full_messages).to include('Phone number is invalid')
       end
 
       it 'phone_numberが全角では登録できない' do
         @buy.phone_number = '０９０１１１１１１１１'
         @buy.valid?
-        expect(@buy.errors.full_messages).to include("Phone number is invalid")
+        expect(@buy.errors.full_messages).to include('Phone number is invalid')
       end
 
       it 'phone_numberはハイフンなしでしか登録できない' do
         @buy.phone_number = '090-1111-1111'
         @buy.valid?
-        expect(@buy.errors.full_messages).to include("Phone number is invalid")
+        expect(@buy.errors.full_messages).to include('Phone number is invalid')
       end
 
       it 'userが紐付いていないと保存できない' do
-        @buy = FactoryBot.build( :address_form,user_id:nil, item_id:@item.id)
+        @buy = FactoryBot.build(:address_form, user_id: nil, item_id: @item.id)
         @buy.valid?
         expect(@buy.errors.full_messages).to include("User can't be blank")
       end
 
       it 'itemが紐付いていないと保存できない' do
-        @buy = FactoryBot.build( :address_form,user_id:@user.id, item_id:nil)
+        @buy = FactoryBot.build(:address_form, user_id: @user.id, item_id: nil)
         @buy.valid?
         expect(@buy.errors.full_messages).to include("Item can't be blank")
       end
 
-      it "tokenが空では登録できないこと" do
-         @buy.token = nil
-         @buy.valid?
+      it 'tokenが空では登録できないこと' do
+        @buy.token = nil
+        @buy.valid?
         expect(@buy.errors.full_messages).to include("Token can't be blank")
       end
-
     end
   end
 end
